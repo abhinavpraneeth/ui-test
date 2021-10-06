@@ -7,8 +7,8 @@ Install node
 ## Steps to run the app
 
 1. Run `npm install`
-2. Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-3. Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+2. Run `npm start` or `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+3. Run `npm test` or `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## Further help
 
