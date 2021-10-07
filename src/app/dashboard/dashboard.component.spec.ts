@@ -9,15 +9,19 @@ describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
   let getPokemonListSpy: any;
+  let generatePokemonListUrlSpy: any;
 
   beforeEach(async () => {
     const pokemons = {};
     const dashboardService = jasmine.createSpyObj('DashboardService', [
       'getPokemonList',
+      'generatePokemonListUrl',
     ]);
     getPokemonListSpy = dashboardService.getPokemonList.and.returnValue(
       of(pokemons)
     );
+    generatePokemonListUrlSpy =
+      dashboardService.generatePokemonListUrl.and.returnValue('');
 
     await TestBed.configureTestingModule({
       declarations: [DashboardComponent],
@@ -48,7 +52,7 @@ describe('DashboardComponent', () => {
     expect(getPokemonListSpy.calls.any()).toBe(true);
   });
 
-  describe('DashboardComponent: display count feature', () => {
+  describe('DashboardComponent: Display count feature', () => {
     it('should have page-actions', () => {
       fixture.detectChanges();
       const compiled = fixture.nativeElement as HTMLElement;
@@ -69,9 +73,9 @@ describe('DashboardComponent', () => {
       fixture.detectChanges();
       expect(component.displayCardCount).toEqual(10);
     });
-    it('should call getPokemonList with 10', () => {
+    it('should call getPokemonList', () => {
       fixture.detectChanges();
-      expect(getPokemonListSpy).toHaveBeenCalledWith(10, 0);
+      expect(getPokemonListSpy).toHaveBeenCalledWith('');
     });
     it('should define onChangeDisplayCount', () => {
       fixture.detectChanges();
@@ -81,8 +85,33 @@ describe('DashboardComponent', () => {
       const count = 20;
       fixture.detectChanges();
       component.onChangeDisplayCount({ target: { value: count } });
+      expect(getPokemonListSpy.calls.any(2)).toBe(true);
+    });
+  });
+
+  describe('DashboardComponent: Previous and Next Feature', () => {
+    it('should define onClickPrevious', () => {
+      fixture.detectChanges();
+      expect(component.onClickPrevious).toBeDefined();
+    });
+
+    it('should call getPokemonList on click of previous', () => {
+      component.previous = 'new url';
+      fixture.detectChanges();
+      component.onClickPrevious();
       expect(getPokemonListSpy.calls.any()).toBe(true);
-      expect(getPokemonListSpy).toHaveBeenCalledWith(count, 0);
+    });
+
+    it('should define onClickNext', () => {
+      fixture.detectChanges();
+      expect(component.onClickNext).toBeDefined();
+    });
+
+    it('should call getPokemonList on click of next', () => {
+      component.next = 'new url';
+      fixture.detectChanges();
+      component.onClickPrevious();
+      expect(getPokemonListSpy.calls.any()).toBe(true);
     });
   });
 });

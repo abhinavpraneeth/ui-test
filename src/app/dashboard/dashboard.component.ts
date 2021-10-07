@@ -10,20 +10,43 @@ export class DashboardComponent implements OnInit {
   pokemons: Pokemon[] = [];
   cardsPerPage = CARDS_PER_PAGE;
   displayCardCount = this.cardsPerPage[0];
+  offset = 0;
+  previous = '';
+  next = '';
 
   constructor(private dashboardService: DashboardService) {}
 
   ngOnInit(): void {
-    this.loadPokemons(this.displayCardCount);
+    const url = this.dashboardService.generatePokemonListUrl(
+      this.displayCardCount,
+      this.offset
+    );
+    this.loadPokemons(url);
   }
 
-  loadPokemons(count: number): void {
-    this.dashboardService.getPokemonList(count, 0).subscribe((data) => {
+  loadPokemons(url: string): void {
+    this.dashboardService.getPokemonList(url).subscribe((data) => {
       this.pokemons = data.results;
+      this.next = data.next;
+      this.previous = data.previous;
+      // TODO calculate new offset
     });
   }
 
   onChangeDisplayCount({ target }: any): void {
-    this.loadPokemons(target.value);
+    // TODO: store count
+    const url = this.dashboardService.generatePokemonListUrl(
+      target.value,
+      this.offset
+    );
+    this.loadPokemons(url);
+  }
+
+  onClickPrevious(): void {
+    if (this.previous) this.loadPokemons(this.previous);
+  }
+
+  onClickNext(): void {
+    if (this.next) this.loadPokemons(this.next);
   }
 }

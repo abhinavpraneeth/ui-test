@@ -5,8 +5,8 @@ import { map } from 'rxjs/operators';
 
 export interface PokemonListDto {
   count: number;
-  next: string | null;
-  previous: string | null;
+  next: string;
+  previous: string;
   results: Pokemon[];
 }
 
@@ -42,8 +42,11 @@ export const CARDS_PER_PAGE = [10, 20, 50];
 export class DashboardService {
   constructor(private http: HttpClient) {}
 
-  getPokemonList(limit: number, offset = 0): Observable<PokemonListDto> {
-    const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
+  generatePokemonListUrl(limit: number, offset: number): string {
+    return `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
+  }
+
+  getPokemonList(url: string): Observable<PokemonListDto> {
     return this.http.get<PokemonListDto>(url);
   }
 

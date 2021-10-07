@@ -15,6 +15,15 @@
         </option>
       </select>
     </div>
+
+    <button
+      class="previous"
+      (click)="onClickPrevious()"
+      [disabled]="previous === null"
+    >
+      Previous
+    </button>
+    <button class="next" (click)="onClickNext()">Next</button>
   </div>
   <div class="cards">
     <ng-container *ngFor="let pokemon of pokemons">
