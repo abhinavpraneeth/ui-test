@@ -1,5 +1,21 @@
 <section>
-  <div class="actions"></div>
+  <div class="page-actions">
+    <label>Pokemons Per Page: </label>
+    <div>
+      <select
+        [(ngModel)]="displayCardCount"
+        (change)="onChangeDisplayCount($event)"
+      >
+        <option
+          *ngFor="let count of cardsPerPage"
+          [value]="count"
+          [selected]="count === displayCardCount"
+        >
+          {{ count }}
+        </option>
+      </select>
+    </div>
+  </div>
   <div class="cards">
     <ng-container *ngFor="let pokemon of pokemons">
       <app-card [pokemon]="pokemon"></app-card>

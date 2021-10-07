@@ -33,7 +33,7 @@ describe('DashboardService', () => {
 
     httpClientSpy.get.and.returnValue(of(expectedResponse));
 
-    dashboardService.getPokemonList().subscribe((response) => {
+    dashboardService.getPokemonList(10).subscribe((response) => {
       expect(response).toEqual(expectedResponse);
       done();
     }, done.fail);

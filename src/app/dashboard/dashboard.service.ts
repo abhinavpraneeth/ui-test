@@ -34,13 +34,15 @@ export interface ImageSprites {
   front_shiny_female: string;
 }
 
+export const CARDS_PER_PAGE = [10, 20, 50];
+
 @Injectable({
   providedIn: 'root',
 })
 export class DashboardService {
   constructor(private http: HttpClient) {}
 
-  getPokemonList(limit = 20, offset = 0): Observable<PokemonListDto> {
+  getPokemonList(limit: number, offset = 0): Observable<PokemonListDto> {
     const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
     return this.http.get<PokemonListDto>(url);
   }
