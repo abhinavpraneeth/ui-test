@@ -1,7 +1,11 @@
 <div class="card">
-  <img class="thumbnail" [src]="pokemonDetail?.sprites?.front_default" />
-  <h4 class="title">{{ pokemon?.name }}</h4>
-  <span> List of Abilities </span>
+  <div class="header">
+    <img class="thumbnail" [src]="pokemonDetail?.sprites?.front_default" />
+    <h4 class="title">{{ pokemon?.name }}</h4>
+  </div>
+  <label class="height"> Height: {{ pokemonDetail?.height }}</label>
+  <label class="weight"> Weight: {{ pokemonDetail?.weight }}</label>
+  <span class="abilities-title"> Abilities </span>
   <ul class="abilities">
     <li *ngFor="let ability of pokemonDetail?.listOfAbilities">
       {{ability}}

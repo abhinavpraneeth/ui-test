@@ -1,21 +1,36 @@
 .card {
-  border: 1px solid gray;
+  border: 1px solid lightgray;
   width: 150px;
   padding: 10px;
   margin: 10px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  .thumbnail {
-    max-width: 100%;
+  align-items: start;
+
+  .header {
+    align-self: center;
+
+    .thumbnail {
+      max-width: 100%;
+    }
+
+    .title {
+      text-transform: capitalize;
+    }
   }
 
-  .title {
-    text-transform: capitalize;
+  .abilities-title,
+  .abilities {
+    color: gray;
+  }
+
+  .abilities-title {
+    margin-top: 10px;
   }
 
   .abilities {
-    padding-left: 10px;
+    padding-left: 20px;
+    margin-top: 2px;
     text-transform: capitalize;
   }
 }
