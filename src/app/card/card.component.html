@@ -1,0 +1,10 @@
+<div class="card">
+  <img class="thumbnail" [src]="pokemonDetail?.sprites?.front_default" />
+  <h4 class="title">{{ pokemon?.name }}</h4>
+  <span> List of Abilities </span>
+  <ul class="abilities">
+    <li *ngFor="let ability of pokemonDetail?.listOfAbilities">
+      {{ability}}
+    </li>
+  </ul>
+</div>

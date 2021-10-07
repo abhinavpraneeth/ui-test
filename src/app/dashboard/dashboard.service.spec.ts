@@ -1,8 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { DashboardService, PokemonListDto } from './dashboard.service';
+import {
+  DashboardService,
+  PokemonDetail,
+  PokemonListDto,
+} from './dashboard.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
 
 describe('DashboardService', () => {
   let dashboardService: DashboardService;
@@ -20,7 +23,7 @@ describe('DashboardService', () => {
     expect(dashboardService).toBeTruthy();
   });
 
-  it('should return expected pokemon list (HttpClient called once)', (done: DoneFn) => {
+  it('should return expected pokemons list (HttpClient called once)', (done: DoneFn) => {
     const expectedResponse: PokemonListDto = {
       count: 0,
       next: '',
@@ -31,6 +34,23 @@ describe('DashboardService', () => {
     httpClientSpy.get.and.returnValue(of(expectedResponse));
 
     dashboardService.getPokemonList().subscribe((response) => {
+      expect(response).toEqual(expectedResponse);
+      done();
+    }, done.fail);
+    expect(httpClientSpy.get.calls.count()).toBe(1);
+  });
+
+  it('should return pokemon detail', (done: DoneFn) => {
+    const expectedResponse: PokemonDetail = {
+      height: 10,
+      weight: 10,
+      id: 1,
+      abilities: [],
+      listOfAbilities: [],
+      sprites: {} as any,
+    };
+    httpClientSpy.get.and.returnValue(of(expectedResponse));
+    dashboardService.getPokemon('').subscribe((response) => {
       expect(response).toEqual(expectedResponse);
       done();
     }, done.fail);
